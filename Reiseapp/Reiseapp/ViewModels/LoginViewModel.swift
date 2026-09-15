@@ -10,10 +10,12 @@ import Foundation
 @Observable
 class LoginViewModel {
     
+    
     var email = ""
     var password = ""
     var errorMessage: String?
     let user = User()
+    var isLoggedIn = false
     
     private func validateInput() throws {
         guard !email.isEmpty else {
@@ -29,7 +31,7 @@ class LoginViewModel {
         do {
             try validateInput()
             if email == user.email && password == user.password {
-                // next view
+                isLoggedIn = true
             } else {
                 throw LoginError.authorizationFailed
             }
