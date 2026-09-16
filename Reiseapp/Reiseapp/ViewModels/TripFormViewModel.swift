@@ -23,9 +23,8 @@ class TripFormViewModel {
     }
     
     func createTrip() -> Trip? {
-        guard let ticketPrice = Double(ticketPrice) else {
-            return nil
-        }
+        let ticketPrice = Double(ticketPrice) ?? 0
+        
         let trip = Trip(title: title, fromCity: fromCity, toCity: toCity, date: date, ticketPrice: ticketPrice, travelers: travelers)
         return trip
     }

@@ -111,7 +111,7 @@ struct NewTripView: View {
                         try modelContext.save()
                         dismiss()
                     } catch {
-                       print(error.localizedDescription)
+                        print(error.localizedDescription)
                     }
                 }
 
