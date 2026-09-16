@@ -11,14 +11,18 @@ import SwiftData
 @main
 struct ReiseappApp: App {
     @State private var loginViewModel = LoginViewModel()
+    @AppStorage("darkMode") private var darkMode = false
 
     var body: some Scene {
         WindowGroup {
-            if loginViewModel.isLoggedIn {
-                MainView()
-            } else {
-                LoginView(loginViewModel: loginViewModel)
+            Group {
+                if loginViewModel.isLoggedIn {
+                    ContentView()
+                } else {
+                    LoginView(loginViewModel: loginViewModel)
+                }
             }
+            .preferredColorScheme(darkMode ? .dark : .light)
         }
         .modelContainer(for: Trip.self)
     }

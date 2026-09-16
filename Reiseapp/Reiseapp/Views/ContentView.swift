@@ -22,7 +22,7 @@ struct ContentView: View {
                 Text("Wetter")
             }
             Tab("Einstellungen", systemImage: "gear", value: 3) {
-                Text("Einstellungen")
+                SettingsView()
             }
             
         }
