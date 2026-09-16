@@ -10,6 +10,7 @@ import Foundation
 @Observable
 class TripFormViewModel {
     
+    var photoData: Data? = nil
     var title = ""
     var fromCity = ""
     var toCity = ""
@@ -25,7 +26,7 @@ class TripFormViewModel {
     func createTrip() -> Trip? {
         let ticketPrice = Double(ticketPrice) ?? 0
         
-        let trip = Trip(title: title, fromCity: fromCity, toCity: toCity, date: date, ticketPrice: ticketPrice, travelers: travelers)
+        let trip = Trip(photoData: photoData, title: title, fromCity: fromCity, toCity: toCity, date: date, ticketPrice: ticketPrice, travelers: travelers)
         return trip
     }
     

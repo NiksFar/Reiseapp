@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainView: View {
     
+    @Query private var trips: [Trip]
     @State private var addNewVacation = false
     
     var body: some View {
@@ -19,8 +21,8 @@ struct MainView: View {
                 VStack {
                     
                     LazyVStack {
-                        ForEach(1..<4) {_ in
-                            MainViewCell()
+                        ForEach(trips) { trip in
+                            MainViewCell(trip: trip)
                         }
                     }
                     .background(.white)

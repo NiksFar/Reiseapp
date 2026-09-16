@@ -10,6 +10,8 @@ import SwiftData
 
 @Model
 class Trip {
+    
+    var photoData: Data?
     var title: String
     var fromCity: String
     var toCity: String
@@ -20,6 +22,7 @@ class Trip {
     var travelers: [Traveler] = []
 
     init(
+        photoData: Data? = nil,
         title: String,
         fromCity: String,
         toCity: String,
@@ -27,12 +30,13 @@ class Trip {
         ticketPrice: Double,
         travelers: [Traveler]
     ) {
+        self.photoData = photoData
         self.title = title
         self.fromCity = fromCity
         self.toCity = toCity
         self.date = date
         self.ticketPrice = ticketPrice
         self.travelers = travelers
-        
     }
+    
 }

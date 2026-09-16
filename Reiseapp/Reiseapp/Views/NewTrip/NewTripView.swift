@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
+import UIKit
 
 struct NewTripView: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,6 +16,7 @@ struct NewTripView: View {
     
     @State var tripFormViewModel = TripFormViewModel()
     @State private var addTraveler = false
+    @State private var selectedPhoto: PhotosPickerItem?
     
     var body: some View {
         Form {
@@ -38,16 +41,25 @@ struct NewTripView: View {
             .listRowInsets(EdgeInsets())
             
             Section {
-                Button {
-                    //
-                } label: {
-                    HStack {
-                        Image(systemName: "photo")
-                        Text("Foto hinzufügen")
+                PhotosPicker(selection: $selectedPhoto, matching: .images) {
+                    if let photoData = tripFormViewModel.photoData,
+                       let uiImage = UIImage(data: photoData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 180)
+                            .frame(maxWidth: .infinity)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    } else {
+                        HStack {
+                            Image(systemName: "photo")
+                            Text("Foto hinzufügen")
+                        }
+                        .foregroundStyle(.iconBG)
                     }
                 }
-                .foregroundStyle(.iconBG)
             }
+            
             
             Section("Allgemeine Informationen") {
                 TextField("Titel", text: $tripFormViewModel.title)
@@ -114,7 +126,7 @@ struct NewTripView: View {
                         print(error.localizedDescription)
                     }
                 }
-
+                
                 Button("Abbrechen") {
                     dismiss()
                 }
@@ -125,6 +137,15 @@ struct NewTripView: View {
         .sheet(isPresented: $addTraveler) {
             AddTravelerView(tripFormViewModel: tripFormViewModel)
         }
+        
+        .onChange(of: selectedPhoto) {
+            Task {
+                if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                    tripFormViewModel.photoData = data
+                }
+            }
+        }
+        
     }
     
 }
