@@ -10,9 +10,15 @@ import SwiftData
 
 @main
 struct ReiseappApp: App {
+    @State private var loginViewModel = LoginViewModel()
+
     var body: some Scene {
         WindowGroup {
-            LoginView(loginViewModel: LoginViewModel())
+            if loginViewModel.isLoggedIn {
+                MainView()
+            } else {
+                LoginView(loginViewModel: loginViewModel)
+            }
         }
         .modelContainer(for: Trip.self)
     }

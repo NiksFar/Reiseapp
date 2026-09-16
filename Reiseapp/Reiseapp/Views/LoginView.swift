@@ -14,7 +14,7 @@ struct LoginView: View {
     
     
     var body: some View {
-        NavigationStack {
+
             ZStack {
                 AppBackgroundView()
                 
@@ -102,12 +102,10 @@ struct LoginView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $loginViewModel.isLoggedIn) {
-                MainView()
-            }
+
         }
     }
-}
+
 
 #Preview {
     LoginView(loginViewModel: LoginViewModel())
