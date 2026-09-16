@@ -8,27 +8,20 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @State private var addNewVacation = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 AppBackgroundView()
                 
                 VStack {
-                    HStack {
-                        Text("Meine Reisen")
-                            .font(.system(size: 28))
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                    .padding(.horizontal)
                     
                     LazyVStack {
                         ForEach(1..<4) {_ in
-                            
                             MainViewCell()
-                            
                         }
-                        
                     }
                     .background(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
@@ -37,6 +30,20 @@ struct MainView: View {
                     Spacer()
                 }
             }
+            .navigationTitle("Meine Reisen")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        addNewVacation = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    
+                }
+            }
+        }
+        .sheet(isPresented: $addNewVacation) {
+            NewTripView()
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ReiseappApp: App {
@@ -13,5 +14,6 @@ struct ReiseappApp: App {
         WindowGroup {
             LoginView(loginViewModel: LoginViewModel())
         }
+        .modelContainer(for: Trip.self)
     }
 }
