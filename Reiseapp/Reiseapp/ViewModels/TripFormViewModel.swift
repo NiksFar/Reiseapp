@@ -15,9 +15,20 @@ class TripFormViewModel {
     var fromCity = ""
     var toCity = ""
     var date = Date()
-    var createdAt = Date()
     var ticketPrice = ""
     var travelers: [Traveler] = []
+    
+    init(trip: Trip? = nil) {
+        if let trip {
+            photoData = trip.photoData
+            title = trip.title
+            fromCity = trip.fromCity
+            toCity = trip.toCity
+            date = trip.date
+            ticketPrice = String(trip.ticketPrice)
+            travelers = trip.travelers
+        }
+    }
     
     func addTraveler(name: String, surname: String) {
         let traveler = Traveler(name: name, surname: surname)
@@ -29,6 +40,17 @@ class TripFormViewModel {
         
         let trip = Trip(photoData: photoData, title: title, fromCity: fromCity, toCity: toCity, date: date, ticketPrice: ticketPrice, travelers: travelers)
         return trip
+    }
+    
+    func updateTrip(trip: Trip) {
+        let ticketPrice = Double(ticketPrice) ?? 0
+        trip.photoData = photoData
+        trip.title = title
+        trip.fromCity = fromCity
+        trip.toCity = toCity
+        trip.date = date
+        trip.ticketPrice = ticketPrice
+        trip.travelers = travelers
     }
     
     func removeTraveler(traveler: Traveler) {

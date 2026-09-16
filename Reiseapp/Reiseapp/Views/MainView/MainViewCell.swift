@@ -13,6 +13,7 @@ struct MainViewCell: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var showDeleteConfirmation = false
+    @State private var showEdit = false
     let trip: Trip
     
     var body: some View {
@@ -58,7 +59,7 @@ struct MainViewCell: View {
             .tint(.red)
             
             Button {
-                //
+                showEdit = true
             } label: {
                 Image(systemName: "pencil")
             }
@@ -81,6 +82,7 @@ struct MainViewCell: View {
         } message: {
             Text("Die Reise wird unwiderruflich gelöscht")
         }
+        
         // Context menu
         .contextMenu {
             Button("Löschen", systemImage: "trash", role: .destructive) {
@@ -88,8 +90,13 @@ struct MainViewCell: View {
             }
             
             Button("Bearbeiten", systemImage: "pencil") {
-                //
+                showEdit = true
             }
+        }
+        
+        // Sheet
+        .sheet(isPresented: $showEdit) {
+            NewTripView(trip: trip)
         }
         
     }

@@ -14,9 +14,15 @@ struct NewTripView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
-    @State var tripFormViewModel = TripFormViewModel()
+    @State var tripFormViewModel: TripFormViewModel
     @State private var addTraveler = false
     @State private var selectedPhoto: PhotosPickerItem?
+    var trip: Trip? = nil
+    
+    init(trip: Trip? = nil) {
+        self.trip = trip
+        _tripFormViewModel = State(initialValue: TripFormViewModel(trip: trip))
+    }
     
     var body: some View {
         Form {
@@ -117,16 +123,27 @@ struct NewTripView: View {
             
             Section {
                 Button("Speichern") {
-                    guard let trip = tripFormViewModel.createTrip() else { return }
-                    modelContext.insert(trip)
-                    do {
-                        try modelContext.save()
-                        dismiss()
-                    } catch {
-                        print(error.localizedDescription)
+                    if let trip {
+                        tripFormViewModel.updateTrip(trip: trip)
+                        
+                        do {
+                            try modelContext.save()
+                            dismiss()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    } else {
+                        guard let trip = tripFormViewModel.createTrip() else { return }
+                        modelContext.insert(trip)
+                        
+                        do {
+                            try modelContext.save()
+                            dismiss()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
-                
                 Button("Abbrechen") {
                     dismiss()
                 }
