@@ -10,7 +10,7 @@ import SwiftData
 
 struct MainView: View {
     
-    @Query private var trips: [Trip]
+    @Query(sort: [SortDescriptor(\Trip.createdAt, order: .reverse)]) var trips: [Trip]
     @State private var addNewVacation = false
     
     var body: some View {

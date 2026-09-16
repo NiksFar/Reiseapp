@@ -15,6 +15,7 @@ class TripFormViewModel {
     var fromCity = ""
     var toCity = ""
     var date = Date()
+    var createdAt = Date()
     var ticketPrice = ""
     var travelers: [Traveler] = []
     

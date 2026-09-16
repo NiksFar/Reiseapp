@@ -16,6 +16,7 @@ class Trip {
     var fromCity: String
     var toCity: String
     var date: Date
+    var createdAt = Date()
     var ticketPrice: Double
     
     @Relationship(deleteRule: .cascade)
