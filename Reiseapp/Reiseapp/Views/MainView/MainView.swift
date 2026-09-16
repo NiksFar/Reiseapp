@@ -20,13 +20,21 @@ struct MainView: View {
                 
                 VStack {
                     
-                    LazyVStack {
-                        ForEach(trips) { trip in
-                            MainViewCell(trip: trip)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 18)
+                            .fill(.white)
+                        
+                        List {
+                            ForEach(trips) { trip in
+                                MainViewCell(trip: trip)
+                                    .listRowBackground(Color.clear)
+                                    .listRowInsets(EdgeInsets())
+                            }
                         }
+                        .listStyle(.plain)
+                        .scrollContentBackground(.hidden)
                     }
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                    .frame(height: CGFloat(trips.count) * 90)
                     .padding(.horizontal)
                     
                     Spacer()

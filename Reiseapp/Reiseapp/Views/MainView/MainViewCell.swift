@@ -7,20 +7,23 @@
 
 import SwiftUI
 import UIKit
+import SwiftData
 
 struct MainViewCell: View {
     
+    @Environment(\.modelContext) private var modelContext
+    @State private var showDeleteConfirmation = false
     let trip: Trip
     
     var body: some View {
         HStack(spacing: 10) {
             if let photoData = trip.photoData,
-            let uiImage = UIImage(data: photoData) {
+               let uiImage = UIImage(data: photoData) {
                 Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 50, height: 50)
-                        .clipShape(.circle)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .clipShape(.circle)
             } else {
                 Image(systemName: "photo")
                     .resizable()
@@ -39,11 +42,56 @@ struct MainViewCell: View {
                     .font(.subheadline)
                     .foregroundStyle(.gray)
                     .italic()
-                    
+                
             }
             Spacer()
         }
         .padding()
+        
+        // Swipe actions
+        .swipeActions(edge: .trailing) {
+            Button {
+                showDeleteConfirmation = true
+            } label: {
+                Image(systemName: "trash")
+            }
+            .tint(.red)
+            
+            Button {
+                //
+            } label: {
+                Image(systemName: "pencil")
+            }
+            .tint(.yellow)
+        }
+        
+        // Confirmation dialog
+        .confirmationDialog(
+            "Löschen",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Löschen", role: .destructive) {
+                modelContext.delete(trip)
+            }
+            
+            Button("Cancel") {
+                //
+            }
+        } message: {
+            Text("Die Reise wird unwiderruflich gelöscht")
+        }
+        // Context menu
+        .contextMenu {
+            Button("Löschen", systemImage: "trash", role: .destructive) {
+                showDeleteConfirmation = true
+            }
+            
+            Button("Bearbeiten", systemImage: "pencil") {
+                //
+            }
+        }
+        
     }
 }
 
