@@ -19,7 +19,7 @@ struct FlightSearchView: View {
     init() {
         _flightSearchViewModel = State(
             initialValue: FlightSearchViewModel(
-                repository: MockFlightRepository() ))
+                repository: FlightAPIRepository() ))
     }
     
     var body: some View {
