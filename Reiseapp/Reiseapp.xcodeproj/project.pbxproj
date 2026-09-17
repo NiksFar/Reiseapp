@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		96DBA6392D9142BE005693CB /* Reiseapp */ = {
+		1AB44533305C988B007C0065 /* Reiseapp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Reiseapp;
 			sourceTree = "<group>";
@@ -32,7 +32,7 @@
 		96DBA62E2D9142BE005693CB = {
 			isa = PBXGroup;
 			children = (
-				96DBA6392D9142BE005693CB /* Reiseapp */,
+				1AB44533305C988B007C0065 /* Reiseapp */,
 				96DBA6382D9142BE005693CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				96DBA6392D9142BE005693CB /* Reiseapp */,
+				1AB44533305C988B007C0065 /* Reiseapp */,
 			);
 			name = Reiseapp;
 			packageProductDependencies = (

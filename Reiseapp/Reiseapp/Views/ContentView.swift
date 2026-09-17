@@ -16,7 +16,7 @@ struct ContentView: View {
                 MainView()
             }
             Tab("Flüge", systemImage: "airplane", value: 1) {
-                Text("Flüge")
+                FlightSearchView()
             }
             Tab("Wetter", systemImage: "cloud.sun.fill", value: 2) {
                 WeatherView()

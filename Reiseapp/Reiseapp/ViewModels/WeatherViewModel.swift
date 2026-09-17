@@ -30,9 +30,7 @@ class WeatherViewModel {
         } catch {
             print(error.localizedDescription)
         }
-        isLoading = false
-        
-        
+        isLoading = false 
     }
     
 }
