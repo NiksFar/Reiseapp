@@ -19,7 +19,7 @@ struct ContentView: View {
                 Text("Flüge")
             }
             Tab("Wetter", systemImage: "cloud.sun.fill", value: 2) {
-                Text("Wetter")
+                WeatherView()
             }
             Tab("Einstellungen", systemImage: "gear", value: 3) {
                 SettingsView()
