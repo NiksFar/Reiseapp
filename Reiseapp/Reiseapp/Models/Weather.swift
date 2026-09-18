@@ -36,4 +36,54 @@ struct WeatherResponse: Decodable {
 struct Weather {
     let temperature: Double
     let weatherCode: Int
+
+    var description: String {
+        switch weatherCode {
+        case 0:
+            "Sonnig"
+        case 1, 2:
+            "Teilweise bewölkt"
+        case 3:
+            "Bewölkt"
+        case 45, 48:
+            "Nebel"
+        case 51...57:
+            "Nieselregen"
+        case 61...67:
+            "Regen"
+        case 71...77:
+            "Schnee"
+        case 80...82:
+            "Regenschauer"
+        case 85, 86:
+            "Schneeschauer"
+        case 95:
+            "Gewitter"
+        case 96, 99:
+            "Gewitter mit Hagel"
+        default:
+            "Unbekannt"
+        }
+    }
+
+    var symbol: String {
+        switch weatherCode {
+        case 0:
+            "sun.max.fill"
+        case 1, 2:
+            "cloud.sun.fill"
+        case 3:
+            "cloud.fill"
+        case 45, 48:
+            "cloud.fog.fill"
+        case 51...67, 80...82:
+            "cloud.rain.fill"
+        case 71...77, 85, 86:
+            "cloud.snow.fill"
+        case 95, 96, 99:
+            "cloud.bolt.rain.fill"
+        default:
+            "questionmark"
+        }
+    }
 }

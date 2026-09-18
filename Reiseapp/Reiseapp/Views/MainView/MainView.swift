@@ -26,9 +26,14 @@ struct MainView: View {
                         
                         List {
                             ForEach(trips) { trip in
-                                MainViewCell(trip: trip)
-                                    .listRowBackground(Color.clear)
-                                    .listRowInsets(EdgeInsets())
+                                NavigationLink {
+                                    TripDetailView(trip: trip)
+                                } label: {
+                                    MainViewCell(trip: trip)
+                                }
+                                .padding(.horizontal, 15)
+                                .listRowBackground(Color.clear)
+                                .listRowInsets(EdgeInsets())
                             }
                         }
                         .listStyle(.plain)
@@ -55,6 +60,7 @@ struct MainView: View {
         .sheet(isPresented: $addNewVacation) {
             NewTripView()
         }
+        
     }
 }
 
