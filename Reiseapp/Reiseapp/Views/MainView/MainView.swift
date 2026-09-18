@@ -1,16 +1,11 @@
-//
-//  MainView.swift
-//  Reiseapp
-//
-//  Created by Mykyta on 15.09.26.
-//
-
 import SwiftUI
 import SwiftData
 
 struct MainView: View {
     
-    @Query(sort: [SortDescriptor(\Trip.createdAt, order: .reverse)]) var trips: [Trip]
+    @Query(sort: [SortDescriptor(\Trip.createdAt, order: .reverse)])
+    private var trips: [Trip]
+    
     @State private var addNewVacation = false
     
     var body: some View {
@@ -18,52 +13,88 @@ struct MainView: View {
             ZStack {
                 AppBackgroundView()
                 
-                VStack {
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 18)
-                            .fill(.white)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 18) {
                         
-                        List {
-                            ForEach(trips) { trip in
-                                NavigationLink {
-                                    TripDetailView(trip: trip)
-                                } label: {
-                                    MainViewCell(trip: trip)
-                                }
-                                .padding(.horizontal, 15)
-                                .listRowBackground(Color.clear)
-                                .listRowInsets(EdgeInsets())
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Meine Reisen")
+                                    .font(
+                                        .system(
+                                            size: 34,
+                                            weight: .bold,
+                                            design: .rounded
+                                        )
+                                    )
+                                    .foregroundStyle(.white)
+                                
+                                Text("Deine nächsten Abenteuer")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.white.opacity(0.82))
+                            }
+                            
+                            Spacer()
+                            
+                            Button {
+                                addNewVacation = true
+                            } label: {
+                                Image(systemName: "plus")
+                                    .font(.title2.bold())
+                                    .foregroundStyle(.black)
+                                    .frame(width: 46, height: 46)
+                                    .background(Color.travelSun)
+                                    .clipShape(Circle())
                             }
                         }
-                        .listStyle(.plain)
-                        .scrollContentBackground(.hidden)
+                        
+                        if trips.isEmpty {
+                            GlassCard {
+                                ContentUnavailableView(
+                                    "Noch keine Reisen",
+                                    systemImage: "suitcase",
+                                    description: Text(
+                                        "Lege über das Plus deine erste Reise an."
+                                    )
+                                )
+                            }
+                        } else {
+                            GlassCard(padding: 8) {
+                                LazyVStack(spacing: 0) {
+                                    ForEach(
+                                        Array(trips.enumerated()),
+                                        id: \.element.id
+                                    ) { index, trip in
+                                        
+                                        NavigationLink {
+                                            TripDetailView(trip: trip)
+                                        } label: {
+                                            MainViewCell(trip: trip)
+                                        }
+                                        .buttonStyle(.plain)
+                                        
+                                        if index < trips.count - 1 {
+                                            Divider()
+                                                .padding(.leading, 84)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                    .frame(height: CGFloat(trips.count) * 90)
-                    .padding(.horizontal)
-                    
-                    Spacer()
+                    .padding(.horizontal, 18)
+                    .padding(.top, 12)
+                    .padding(.bottom, 20)
                 }
             }
-            .navigationTitle("Meine Reisen")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        addNewVacation = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    
-                }
+            .toolbar(.hidden, for: .navigationBar)
+            .sheet(isPresented: $addNewVacation) {
+                NewTripView()
             }
         }
-        .sheet(isPresented: $addNewVacation) {
-            NewTripView()
-        }
-        
     }
 }
 
 #Preview {
     MainView()
+        .modelContainer(for: Trip.self, inMemory: true)
 }

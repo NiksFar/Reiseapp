@@ -1,34 +1,51 @@
-//
-//  ContentView.swift
-//  Reiseapp
-//
-//  Created by Florian Rhein on 24.03.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var selection = 0
-    
+
     var body: some View {
         TabView(selection: $selection) {
-            Tab("Reisen", systemImage: "suitcase.fill", value: 0) {
+            Tab(
+                "Reisen",
+                systemImage: "suitcase.fill",
+                value: 0
+            ) {
                 MainView()
             }
-            Tab("Flüge", systemImage: "airplane", value: 1) {
+
+            Tab(
+                "Flüge",
+                systemImage: "airplane",
+                value: 1
+            ) {
                 FlightSearchView()
             }
-            Tab("Wetter", systemImage: "cloud.sun.fill", value: 2) {
+
+            Tab(
+                "Wetter",
+                systemImage: "cloud.sun.fill",
+                value: 2
+            ) {
                 WeatherView()
             }
-            Tab("Einstellungen", systemImage: "gear", value: 3) {
+
+            Tab(
+                "Einstellungen",
+                systemImage: "gearshape.fill",
+                value: 3
+            ) {
                 SettingsView()
             }
-            
         }
+        .tint(.travelViolet)
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(
+            for: Trip.self,
+            inMemory: true
+        )
 }
