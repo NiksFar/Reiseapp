@@ -17,7 +17,7 @@ struct WeatherView: View {
     init() {
         _weatherViewModel = State(
             initialValue: WeatherViewModel(
-                repository: MockWeatherRepository() ))
+                repository: WeatherAPIRepository() ))
     }
     
     private var weatherSymbol: String {
@@ -66,7 +66,6 @@ struct WeatherView: View {
                         Button {
                             weatherViewModel.selectedCity = searchCity
                             Task {
-                                
                                 await weatherViewModel.loadWeather()
                             }
                         } label: {

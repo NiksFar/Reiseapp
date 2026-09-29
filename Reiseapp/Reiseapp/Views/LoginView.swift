@@ -35,7 +35,7 @@ struct LoginView: View {
                             y: 10
                         )
 
-                        Text("reise app")
+                        Text("Reise App")
                             .font(
                                 .system(
                                     size: 32,
@@ -61,7 +61,7 @@ struct LoginView: View {
                         .keyboardType(.emailAddress)
                         .padding(.horizontal, 16)
                         .frame(height: 56)
-                        .background(.white)
+                        .background(Color(.secondarySystemBackground))
                         .clipShape(
                             RoundedRectangle(cornerRadius: 16)
                         )
@@ -69,15 +69,9 @@ struct LoginView: View {
                         HStack(spacing: 0) {
                             Group {
                                 if isSecure {
-                                    SecureField(
-                                        "Passwort",
-                                        text: $loginViewModel.password
-                                    )
+                                    SecureField("Passwort", text: $loginViewModel.password)
                                 } else {
-                                    TextField(
-                                        "Passwort",
-                                        text: $loginViewModel.password
-                                    )
+                                    TextField("Passwort", text: $loginViewModel.password)
                                 }
                             }
                             .textInputAutocapitalization(.never)
@@ -94,13 +88,10 @@ struct LoginView: View {
                                 )
                                 .padding(16)
                             }
-                            .foregroundStyle(.secondary)
                         }
                         .frame(height: 56)
-                        .background(.white)
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: 16)
-                        )
+                        .background(Color(.secondarySystemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
 
                         if let error = loginViewModel.errorMessage {
                             Label(
