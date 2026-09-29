@@ -55,16 +55,20 @@ struct TripDetailView: View {
                     }
                     
                     Section {
-                        ForEach(tripDetailViewModel.flights) { flight in
-                            HStack {
-                                Text(flight.date, format: .dateTime.day().month().year())
-                                Spacer()
-                                Text("\(flight.price, specifier: "%.0f") €")
-                                    .fontWeight(.semibold)
+                        ScrollView(.vertical) {
+                            ForEach(tripDetailViewModel.flights) { flight in
+                                HStack {
+                                    Text(flight.date, format: .dateTime.day().month().year())
+                                    Spacer()
+                                    Text("\(flight.price, specifier: "%.0f") €")
+                                        .fontWeight(.semibold)
+                                }
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 16)
                             }
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
                         }
+                        .frame(height: 330)
+                        
                     } header: {
                         Text("Günstigste Flüge")
                     }

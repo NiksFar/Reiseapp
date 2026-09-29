@@ -27,22 +27,32 @@ struct AppBackgroundView: View {
 }
 
 struct GlassCard<Content: View>: View {
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
     let padding: CGFloat
     @ViewBuilder let content: Content
     init(padding: CGFloat = 18, @ViewBuilder content: () -> Content) {
         self.padding = padding; self.content = content()
     }
     var body: some View { content.padding(padding)
-            .background(.white.opacity(0.96)).clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .shadow(color: .black.opacity(0.12), radius: 18, y: 8)
+            .background(colorScheme == .dark
+                        ? Color(.secondarySystemBackground)
+                        : Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .shadow(color: .black.opacity(0.12), radius: 18, y: 8)
     }
 }
 
 struct TravelButtonStyle: ButtonStyle {
-    let color: Color
-    let foreground: Color
+    let color: Color
+    let foreground: Color
+    
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label.font(.headline).padding(.vertical, 14).frame(maxWidth: .infinity).background(color).foregroundStyle(foreground).clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous)).shadow(color: .black.opacity(configuration.isPressed ? 0.04 : 0.14), radius: 12, y: 6).scaleEffect(configuration.isPressed ? 0.98 : 1)
+        configuration.label.font(.headline).padding(.vertical, 14).frame(maxWidth: .infinity).background(color).foregroundStyle(foreground).clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: .black.opacity(configuration.isPressed ? 0.04 : 0.14),
+                    radius: 12, y: 6)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
     }
 }
 
