@@ -10,37 +10,22 @@ The application allows users to create and manage travel plans and provides a st
 
 ## Screenshots
 
-### Authentication
+<p align="center">
+  <img src="Screenshots/03-my-trips.png" width="250">
+  <img src="Screenshots/02-trip-detail.png" width="250">
+  <img src="Screenshots/05-flight-search.png" width="250">
+</p>
 
-![Login](Screenshots/01-login.png)
+<p align="center">
+  <img src="Screenshots/06-weather.png" width="250">
+  <img src="Screenshots/07-settings-dark-mode.png" width="250">
+  <img src="Screenshots/08-new-trip.png" width="250">
+</p>
 
-### My Trips
-
-![My Trips](Screenshots/03-my-trips.png)
-
-### Trip Details
-
-![Trip Details](Screenshots/02-trip-detail.png)
-
-### Flight Search
-
-![Flight Search](Screenshots/05-flight-search.png)
-
-### Weather
-
-![Weather](Screenshots/06-weather.png)
-
-### Settings & Dark Mode
-
-![Settings](Screenshots/07-settings-dark-mode.png)
-
-### Create a New Trip
-
-![New Trip](Screenshots/08-new-trip.png)
-
-### Trip Management
-
-![Trip Actions](Screenshots/04-trip-actions.png)
+<p align="center">
+  <img src="Screenshots/01-login.png" width="250">
+  <img src="Screenshots/04-trip-actions.png" width="250">
+</p>
 
 ## Technologies
 
